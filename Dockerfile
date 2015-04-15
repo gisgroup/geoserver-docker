@@ -16,14 +16,17 @@ RUN apt-get update && apt-get -y install \
   unzip
 
 # set environment variables
-ENV GS_VERSION 2.7.0
-ENV GS_URL http://sourceforge.net/projects/geoserver/files/GeoServer/$GS_VERSION/geoserver-$GS_VERSION-war.zip
+ENV GEOSERVER_VERSION 2.7.0
+ENV GEOSERVER_DATA_DIR /usr/local/tomcat/webapps/geoserver/data
+ENV GEOSERVER_ARCHIVE_URL http://sourceforge.net/projects/geoserver/files/GeoServer/$GS_VERSION/geoserver-$GEOSERVER_VERSION-war.zip
 
 # fetch the geoserver web application archive
-RUN wget -q $GS_URL -O /tmp/geoserver.zip
+RUN wget -q $GEOSERVER_ARCHIVE_URL -O /tmp/geoserver.zip
 
 # unzip and move into tomcat
 RUN unzip -q /tmp/geoserver.zip -d /tmp
 RUN mv /tmp/geoserver.war /usr/local/tomcat/webapps/
 
-# parent image runs tomcat
+VOLUME $GEOSERVER_DATA_DIR
+
+# parent image runs tomcat and exposes 8080
