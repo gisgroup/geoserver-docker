@@ -2,6 +2,6 @@
 
 If you need access outside the host, on port 8080:
 
-	docker run -d -p 8080:8080 gisgroup/geoserver
+	docker run -d -p 8080:8080 --restart=always --name geoserver gisgroup/geoserver
 
 You can then go to `http://host-ip:8080` in a browser.
