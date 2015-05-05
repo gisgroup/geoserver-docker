@@ -25,8 +25,9 @@ RUN wget \
 RUN unzip -q /tmp/geoserver.zip -d /tmp
 RUN mv /tmp/geoserver.war /usr/local/tomcat/webapps/
 
+RUN mkdir -p /var/lib/geoserver/data
+VOLUME /var/lib/geoserver/data
+
 ENV GEOSERVER_DATA_DIR /var/lib/geoserver/data
-RUN mkdir -p $GEOSERVER_DATA_DIR
-VOLUME $GEOSERVER_DATA_DIR
 
 # parent image runs tomcat and exposes 8080
